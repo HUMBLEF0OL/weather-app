@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { fetchWeatherData } = require('../controller/weatherController');
+const { getWeatherData, genericFunction } = require('../controller/weatherController');
 
-router.get('/', fetchWeatherData);
+router.get('/:city', getWeatherData);
+
+router.get('/', genericFunction)
 
 module.exports = router;
