@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const weatherRouter = require('./routes/weatherRoute');
 const rateLimit = require('express-rate-limit');
+const { initializeRedis } = require('./config/redisClient');
 
 const app = express();
 
@@ -22,7 +23,10 @@ app.get('/', (req, res) => {
     res.send('test');
 })
 
-app.listen(process.env.PORT, () => {
-    console.log("listening on: ", process.env.PORT);
+initializeRedis().then(() => {
+    app.listen(process.env.PORT, () => {
+        console.log("listening on: ", process.env.PORT);
+    })
 })
+
 
